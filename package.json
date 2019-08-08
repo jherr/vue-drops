@@ -59,7 +59,6 @@
     "snapshotSerializers": [
       "jest-serializer-vue"
     ],
-    "setupFiles": ["./tests/unit/utils.(js|jsx|ts|tsx)"],
     "testMatch": [
       "**/tests/unit/**/*.spec.(js|jsx|ts|tsx)|**/__tests__/*.(js|jsx|ts|tsx)"
     ],

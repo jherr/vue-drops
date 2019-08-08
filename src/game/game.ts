@@ -16,6 +16,7 @@ export default class Game {
 
   public placeColor(color: Color) {
     let cells: Cell[] = [];
+    let iterations = 0;
     do {
       cells = this.grid.colorize(color);
       if (hasKey(cells)) {
@@ -24,7 +25,8 @@ export default class Game {
       if (hasRandomize(cells)) {
         this.grid.randomize();
       }
-    } while (cells.length > 0);
+      iterations += 1;
+    } while (cells.length > 0 && iterations < 100);
     this.turn += 1;
   }
 }

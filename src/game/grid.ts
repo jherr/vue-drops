@@ -30,9 +30,11 @@ export default class Grid {
       }
     }
 
-    this.placeSpecial((c) => c.lock = true);
-    this.placeSpecial((c) => c.key = true);
-    this.placeSpecial((c) => c.randomize = true);
+    if (this.gridSize > 0) {
+      this.placeSpecial((c) => c.lock = true);
+      this.placeSpecial((c) => c.key = true);
+      this.placeSpecial((c) => c.randomize = true);
+    }
   }
 
   public get cellList(): Cell[] {
@@ -77,7 +79,7 @@ export default class Grid {
         cell.color = color;
         this.neighbors(cell.x, cell.y)
           .forEach((neighbor) => {
-            if (neighbor.color === color && neighbor.lock === false) {
+            if (neighbor.color === color && neighbor.lock === false && neighbor.used === false) {
               neighbor.used = true;
               filled.push(neighbor);
             }
