@@ -22,7 +22,7 @@ export default class Cell {
       Color.Red,
       Color.Yellow,
     ];
-    this.color = options[Math.ceil(Math.random() * options.length)];
+    this.color = options[Math.floor(Math.random() * options.length)];
   }
 
   public get isSpecial(): boolean {

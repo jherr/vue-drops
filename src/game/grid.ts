@@ -45,14 +45,10 @@ export default class Grid {
 
   public neighbors(x: number, y: number): Cell[] {
     return [
-      this.getCell(x - 1, y - 1),
       this.getCell(x, y - 1),
-      this.getCell(x + 1, y - 1),
       this.getCell(x - 1, y),
       this.getCell(x + 1, y),
-      this.getCell(x - 1, y + 1),
       this.getCell(x, y + 1),
-      this.getCell(x + 1, y + 1),
     ].filter((c) => c != null) as Cell[];
   }
 
@@ -65,6 +61,12 @@ export default class Grid {
   public getByColor(color: Color): Cell[] {
     return this.cellList.filter(
       (c: Cell) => c.color === color,
+    );
+  }
+
+  public getByOtherColor(color: Color): Cell[] {
+    return this.cellList.filter(
+      (c: Cell) => c.color !== color,
     );
   }
 
@@ -103,12 +105,12 @@ export default class Grid {
 
   private get nonSpecialCells(): Cell[] {
     return this.cellList.filter(
-      (c: Cell) => c.used && c.color !== Color.Any && !c.isSpecial,
+      (c: Cell) => !c.used && c.color !== Color.Any && !c.isSpecial,
     );
   }
 
   private placeSpecial(callback: SpecialCallbackFunc) {
     const nonSpecials = this.nonSpecialCells;
-    callback(nonSpecials[Math.round(Math.random() * nonSpecials.length)]);
+    callback(nonSpecials[Math.floor(Math.random() * nonSpecials.length)]);
   }
 }

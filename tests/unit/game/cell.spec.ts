@@ -6,7 +6,6 @@ describe('cell', () => {
     const cell = new Cell(0, 0);
     cell.randomizeColor();
     expect(cell.color).not.toBe(Color.Any);
-    expect(cell.color).not.toBe(Color.None);
   });
 
   it('should tell if a cell is special', () => {
