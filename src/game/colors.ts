@@ -9,4 +9,13 @@ enum Color {
   None = 'none',
 }
 
+export const Colors: Color[] = [
+  Color.Red,
+  Color.Blue,
+  Color.LightBlue,
+  Color.Green,
+  Color.Pink,
+  Color.Yellow,
+];
+
 export default Color;

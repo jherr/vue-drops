@@ -1,6 +1,6 @@
 import Color from '@/game/colors';
 import Grid from '@/game/grid';
-import Game from '@/game/game';
+import Game, { GameState } from '@/game/game';
 
 const colorMap: any = {
   A: Color.Any,
@@ -87,5 +87,30 @@ BB-`);
     grid.getCell(1, 0)!.randomize = true;
     game.placeColor(Color.Blue);
     expect(grid.getByColor(Color.Blue).length).not.toBe(7);
+  });
+
+  it('should handle a win', () => {
+    const { grid, layout } = createGrid(
+`ABB
+BBB
+BBB`);
+    const game = new Game(layout);
+    game.grid = grid;
+    game.targetColor = Color.Blue;
+    game.placeColor(Color.Blue);
+    expect(game.state).toBe(GameState.Won);
+  });
+
+  it('should handle a win', () => {
+    const { grid, layout } = createGrid(
+`ARB
+RRB
+BBB`);
+    const game = new Game(layout);
+    game.grid = grid;
+    game.targetColor = Color.Blue;
+    game.turnsLeft = 1;
+    game.placeColor(Color.Blue);
+    expect(game.state).toBe(GameState.Lost);
   });
 });

@@ -43,17 +43,17 @@ export const createGrid = (template: string): Grid => {
   return g;
 };
 
-export const matchesUsed = (grid: Grid, used: string): boolean => {
+export const matchesOwned = (grid: Grid, owned: string): boolean => {
   let match = true;
-  used.split(/\n/).forEach((line, y) => {
+  owned.split(/\n/).forEach((line, y) => {
       line.split('').forEach((char, x) => {
         const cell = grid.getCell(x, y);
         if (char === '*') {
-          if (cell!.used === false) {
+          if (cell!.owned === false) {
             match = false;
           }
         } else if (char === '-') {
-          if (cell!.used) {
+          if (cell!.owned) {
             match = false;
           }
         }
@@ -68,14 +68,14 @@ describe('Grid', () => {
 `BBB
 BBR
 BB-`);
-    expect(g.used.length).toBe(1);
+    expect(g.owned.length).toBe(1);
     expect(g.getByColor(Color.Red).length).toBe(1);
     expect(g.getByOtherColor(Color.Red).length).toBe(7);
-    expect(matchesUsed(g,
+    expect(matchesOwned(g,
 `*--
 ---
 -- `)).toBe(true);
-    expect(matchesUsed(g,
+    expect(matchesOwned(g,
 `-*-
 **-
 -- `)).toBe(false);
@@ -88,25 +88,25 @@ BBB
 BBR`);
 
     g.colorize(Color.Blue);
-    expect(matchesUsed(g,
+    expect(matchesOwned(g,
 `**-
 *--
 ---`)).toBe(true);
 
     g.colorize(Color.Blue);
-    expect(matchesUsed(g,
+    expect(matchesOwned(g,
 `***
 **-
 *--`)).toBe(true);
 
     g.colorize(Color.Blue);
-    expect(matchesUsed(g,
+    expect(matchesOwned(g,
 `***
 ***
 **-`)).toBe(true);
 
     g.colorize(Color.Blue);
-    expect(matchesUsed(g,
+    expect(matchesOwned(g,
 `***
 ***
 **-`)).toBe(true);
@@ -119,19 +119,19 @@ BBR`);
 BBR`);
 
     g.colorize(Color.Blue);
-    expect(matchesUsed(g,
+    expect(matchesOwned(g,
 `**-
   -
 ---`)).toBe(true);
 
     g.colorize(Color.Blue);
-    expect(matchesUsed(g,
+    expect(matchesOwned(g,
 `***
   -
 ---`)).toBe(true);
 
     g.colorize(Color.Blue);
-    expect(matchesUsed(g,
+    expect(matchesOwned(g,
 `***
   *
 ---`)).toBe(true);

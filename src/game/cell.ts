@@ -2,7 +2,7 @@ import Color from './colors';
 
 export default class Cell {
   public color: Color = Color.None;
-  public used: boolean = false;
+  public owned: boolean = false;
   public key: boolean = false;
   public lock: boolean = false;
   public randomize: boolean = false;

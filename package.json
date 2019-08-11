@@ -11,6 +11,7 @@
   "dependencies": {
     "core-js": "^2.6.5",
     "vue": "^2.6.10",
+    "vue-awesome": "^3.5.4",
     "vue-class-component": "^7.0.2",
     "vue-property-decorator": "^8.1.0",
     "vuex": "^3.0.1"
@@ -23,6 +24,8 @@
     "@vue/cli-service": "^3.0.5",
     "@vue/test-utils": "1.0.0-beta.29",
     "babel-core": "7.0.0-bridge.0",
+    "sass": "^1.22.9",
+    "sass-loader": "^7.2.0",
     "ts-jest": "^23.0.0",
     "typescript": "^3.4.3",
     "vue-template-compiler": "^2.6.10"
