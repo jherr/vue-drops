@@ -4,14 +4,6 @@
   </div>
 </template>
 
-<script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-
-@Component
-export default class Grid extends Vue {
-}
-</script>
-
 <style scoped>
 .grid-container {
   display: grid;

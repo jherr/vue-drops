@@ -34,8 +34,7 @@ export default class CellComponent extends Vue {
 @import '@/variables.scss';
 
 .btn {
-  margin: 5px;
-  width: 40%;
+  width: 100%;
   height: 6vw;
   border-radius: 5px;
 }

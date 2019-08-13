@@ -65,6 +65,6 @@ export default class HelloWorld extends Vue {
 <style scoped>
 .container {
   display: grid;
-  grid-template-columns: 15vw 65vw 20vw;
+  grid-template-columns: 15% 60% 23%;
 }
 </style>

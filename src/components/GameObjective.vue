@@ -24,10 +24,6 @@ import TargetColor from '@/components/TargetColor.vue';
   },
 })
 export default class HelloWorld extends Vue {
-  get targetColor(): string {
-    return this.$store.state.game.targetColor as string;
-  }
-
   get turnsLeft(): number {
     return this.$store.state.game.turnsLeft;
   }
