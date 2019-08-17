@@ -17,11 +17,11 @@ export default class Grid {
     let first = true;
     for (let y = 0; y < this.gridSize; y += 1) {
       for (let x = 0; x < this.gridSize; x += 1) {
-        if (layout[y][x]) {
+        if (layout[y][x] === 1) {
           this.cells[x][y] = new Cell(x, y);
           if (first) {
             this.cells[x][y].color = Color.Any;
-            this.cells[x][y].used = true;
+            this.cells[x][y].owned = true;
           } else {
             this.cells[x][y].randomizeColor();
           }
@@ -30,13 +30,16 @@ export default class Grid {
       }
     }
 
-    this.placeSpecial((c) => c.lock = true);
-    this.placeSpecial((c) => c.key = true);
-    this.placeSpecial((c) => c.randomize = true);
+    if (this.gridSize > 0) {
+      this.placeSpecial((c) => c.lock = true);
+      this.placeSpecial((c) => c.key = true);
+      this.placeSpecial((c) => c.randomize = true);
+    }
   }
 
   public get cellList(): Cell[] {
-    return ([] as Cell[]).concat(...this.cells);
+    return (([] as Cell[]).concat(...this.cells))
+      .filter((cell) => cell !== undefined);
   }
 
   public getCell(x: number, y: number): Cell | undefined {
@@ -52,15 +55,21 @@ export default class Grid {
     ].filter((c) => c != null) as Cell[];
   }
 
-  public get used(): Cell[] {
+  public get owned(): Cell[] {
     return this.cellList.filter(
-      (c: Cell) => c.used,
+      (c: Cell) => c.owned,
     );
   }
 
   public getByColor(color: Color): Cell[] {
     return this.cellList.filter(
       (c: Cell) => c.color === color,
+    );
+  }
+
+  public getByColorUnOwned(color: Color): Cell[] {
+    return this.cellList.filter(
+      (c: Cell) => c.color === color && !c.owned,
     );
   }
 
@@ -72,13 +81,13 @@ export default class Grid {
 
   public colorize(color: Color): Cell[] {
     const filled: Cell[] = [];
-    this.used
+    this.owned
       .forEach((cell) => {
         cell.color = color;
         this.neighbors(cell.x, cell.y)
           .forEach((neighbor) => {
-            if (neighbor.color === color && neighbor.lock === false) {
-              neighbor.used = true;
+            if (neighbor.color === color && neighbor.lock === false && neighbor.owned === false) {
+              neighbor.owned = true;
               filled.push(neighbor);
             }
           });
@@ -89,7 +98,8 @@ export default class Grid {
   public randomize() {
     this.cellList
       .forEach((c) => {
-        if (!c.used) {
+        c.randomize = false;
+        if (!c.owned) {
           c.randomizeColor();
         }
       });
@@ -105,7 +115,7 @@ export default class Grid {
 
   private get nonSpecialCells(): Cell[] {
     return this.cellList.filter(
-      (c: Cell) => !c.used && c.color !== Color.Any && !c.isSpecial,
+      (c: Cell) => !c.owned && c.color !== Color.Any && !c.isSpecial,
     );
   }
 

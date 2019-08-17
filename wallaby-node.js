@@ -2,7 +2,7 @@ module.exports = wallaby => {
   process.env.VUE_CLI_BABEL_TRANSPILE_MODULES = true;
 
   return {
-    files: ['src/**/*', 'tests/*/*.ts', 'tests/*/*.js', 'jest.config.js', 'package.json', 'tsconfig.json'],
+    files: ['src/**/*', 'jest.config.js', 'package.json', 'tsconfig.json'],
 
     tests: ['tests/**/*.spec.ts'],
 
